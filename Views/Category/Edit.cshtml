@@ -1,0 +1,74 @@
+@model TestApp.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Edit Category</h1>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label fw-bold">Category Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter category name" id="category-name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="form-label fw-bold">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Slug" class="form-label fw-bold">Slug</label>
+                <input asp-for="Slug" class="form-control" placeholder="Enter slug" id="category-slug" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check mb-3">
+                <input class="form-check-input" asp-for="Status" />
+                <label asp-for="Status" class="form-check-label">Active</label>
+            </div>
+
+            <div class="form-group text-end">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.getElementById('category-name').addEventListener('input', function() {
+            const nameValue = this.value;
+            const slugValue = nameValue
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '');
+            document.getElementById('category-slug').value = slugValue;
+        });
+    </script>
+}
+
+<style>
+    .card {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    label {
+        font-weight: bold;
+    }
+    .btn {
+        min-width: 100px;
+    }
+</style>

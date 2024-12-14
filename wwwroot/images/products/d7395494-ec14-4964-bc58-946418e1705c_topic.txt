@@ -1,0 +1,7 @@
+Title:
+"Reducing Food Wastage Through Real-Time Notification Systems for Cancelled Food Orders"
+
+Description:
+This research aims to address the issue of food wastage in Sri Lanka caused by cancelled food orders in the online food delivery ecosystem. The proposed system will notify nearby users when a food item becomes available for purchase at a discounted price due to cancellation. This not only helps reduce food wastage but also encourages consumers to purchase the available items, benefiting both customers and restaurants. The system aims to create a more sustainable food delivery process by leveraging real-time notifications and dynamic pricing.
+
+by - CB011234

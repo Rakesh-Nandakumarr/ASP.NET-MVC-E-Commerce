@@ -1,0 +1,155 @@
+@model TestApp.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Create Product</h1>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <!-- Two-column layout for the form fields -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="form-label fw-bold">Product Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter product name" id="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Price" class="form-label fw-bold">Price</label>
+                        <input asp-for="Price" class="form-control" placeholder="Enter price" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label fw-bold">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+                
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Brand" class="form-label fw-bold">Brand</label>
+                        <input asp-for="Brand" class="form-control" placeholder="Enter brand" />
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Stock" class="form-label fw-bold">Stock</label>
+                        <input asp-for="Stock" class="form-control" placeholder="Enter stock quantity" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Rating" class="form-label fw-bold">Rating</label>
+                        <input asp-for="Rating" class="form-control" placeholder="Enter product rating" />
+                        <span asp-validation-for="Rating" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="form-label fw-bold">Category</label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Slug" class="form-label fw-bold">Slug</label>
+                        <input asp-for="Slug" class="form-control" placeholder="Enter slug" id="Slug" />
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-check">
+                        <input class="form-check-input" asp-for="Status" />
+                        <label asp-for="Status" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MetaTitle" class="form-label fw-bold">Meta Title</label>
+                        <input asp-for="MetaTitle" class="form-control" placeholder="Enter meta title"/>
+                        <span asp-validation-for="MetaTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MetaKeywords" class="form-label fw-bold">Meta Keywords</label>
+                        <input asp-for="MetaKeywords" class="form-control" placeholder="Enter meta keywords"/>
+                        <span asp-validation-for="MetaKeywords" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="MetaDescription" class="form-label fw-bold">Meta Description</label>
+                        <textarea asp-for="MetaDescription" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                        <span asp-validation-for="MetaDescription" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-end">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.getElementById('Name').addEventListener('input', function() {
+            const nameValue = this.value;
+            const slugValue = nameValue
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '');
+            document.getElementById('Slug').value = slugValue;
+        });
+    </script>
+}
+
+<style>
+    .card {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .form-label {
+        font-weight: bold;
+    }
+    .btn {
+        min-width: 100px;
+    }
+</style>
