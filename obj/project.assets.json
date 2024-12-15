@@ -8462,20 +8462,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rakes\\.nuget\\packages\\": {}
+    "C:\\Users\\Developer\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rakes\\Desktop\\asp_net\\TestApp\\TestApp.csproj",
+      "projectUniqueName": "C:\\Users\\Developer\\Desktop\\ASPNET\\ASP.NET-MVC-E-Commerce\\TestApp.csproj",
       "projectName": "TestApp",
-      "projectPath": "C:\\Users\\rakes\\Desktop\\asp_net\\TestApp\\TestApp.csproj",
-      "packagesPath": "C:\\Users\\rakes\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rakes\\Desktop\\asp_net\\TestApp\\obj\\",
+      "projectPath": "C:\\Users\\Developer\\Desktop\\ASPNET\\ASP.NET-MVC-E-Commerce\\TestApp.csproj",
+      "packagesPath": "C:\\Users\\Developer\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Developer\\Desktop\\ASPNET\\ASP.NET-MVC-E-Commerce\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\rakes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Developer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8483,7 +8488,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
