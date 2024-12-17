@@ -8,11 +8,11 @@ public class Cart
     public List<CartItem>? CartItems { get; set; }
     public bool IsCheckedOut { get; set; } = false;
     public DateTime? CheckedOutAt { get; set; }
-    public decimal SubTotal { get; set; }
-    public decimal Discount { get; set; }
-    public decimal TotalTax { get; set; }
+    public decimal SubTotal { get; set; } = 0;
+    public decimal Discount { get; set; } = 0;
+    public decimal TotalTax { get; set; } = 0;
     public decimal ShippingFee { get; set; } = 100;
-    public decimal Total { get; set; }
+    public decimal Total { get; set; } = 0;
     
     //order location
     public string? Address { get; set; }

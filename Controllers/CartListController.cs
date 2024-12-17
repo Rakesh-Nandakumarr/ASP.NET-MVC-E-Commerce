@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestApp.Data;
+using TestApp.DTO;
 using TestApp.Models;
 
 namespace TestApp.Controllers
@@ -25,6 +26,7 @@ namespace TestApp.Controllers
         }
 
         // GET: CartList
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.CartItems.Include(c => c.Cart).Include(c => c.Product).Where(c => c.Cart.UserId == _userManager.GetUserId(User));
@@ -79,11 +81,6 @@ namespace TestApp.Controllers
                 cart = new Cart
                 {
                     UserId = _userManager.GetUserId(User),
-                    IsCheckedOut = false,
-                    SubTotal = 0,
-                    Discount = 0,
-                    TotalTax = 0,
-                    Total = 0
                 };
                 _context.Carts.Add(cart);
                 await _context.SaveChangesAsync();
@@ -161,13 +158,6 @@ namespace TestApp.Controllers
                 itemTotal = itemTotal.ToString("C"), 
                 grandTotal = grandTotal.ToString("C") 
             });
-        }
-
-        // DTO for request
-        public class UpdateQuantityRequest
-        {
-            public int CartId { get; set; }
-            public int Change { get; set; }
         }
 
 
@@ -264,6 +254,22 @@ namespace TestApp.Controllers
         private bool CartItemExists(int id)
         {
             return _context.CartItems.Any(e => e.Id == id);
+        }
+
+        public IActionResult UpdateAddress(UpdateAddressRequest request)
+        {
+            var cart = _context.Carts.FirstOrDefault(c => c.UserId == _userManager.GetUserId(User) && !c.IsCheckedOut);
+            if (cart == null)
+                return Json(new { success = false });
+
+            cart.Address = request.Address;
+            cart.ContactNumber = request.ContactNumber;
+
+            _context.SaveChanges();
+
+            ViewBag.Address = cart.Address;
+            ViewBag.ContactNumber = cart.ContactNumber;
+            return RedirectToAction(nameof(Index));
         }
     }
 }

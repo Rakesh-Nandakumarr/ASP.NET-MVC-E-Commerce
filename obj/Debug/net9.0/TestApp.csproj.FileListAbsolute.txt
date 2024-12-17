@@ -698,7 +698,6 @@ C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\TestAp
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\TestApp.RazorAssemblyInfo.cache
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\TestApp.RazorAssemblyInfo.cs
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\TestApp.sourcelink.json
-C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\scopedcss\bundle\TestApp.styles.css
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\scopedcss\projectbundle\TestApp.bundle.scp.css
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\ofa40bqe71-b9sayid5wm.gz
@@ -829,8 +828,6 @@ C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compre
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\wizd3y1w3o-9vr69e8ynj.gz
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\zh7lagga0r-87fc7y1x7t.gz
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\pq7emx81bo-mlv21k5csn.gz
-C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\m29jmyjwrl-y4mxllfeo8.gz
-C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\k595od2avo-y4mxllfeo8.gz
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -851,3 +848,7 @@ C:\Users\rakes\Desktop\asp_net\TestApp\obj\Debug\net9.0\scopedcss\Views\Shared\_
 C:\Users\rakes\Desktop\asp_net\TestApp\obj\Debug\net9.0\scopedcss\Views\Shared\_MainLayout.cshtml.rz.scp.css
 C:\Users\rakes\Desktop\asp_net\TestApp\obj\Debug\net9.0\compressed\m29jmyjwrl-q7hr42s4w4.gz
 C:\Users\rakes\Desktop\asp_net\TestApp\obj\Debug\net9.0\compressed\k595od2avo-q7hr42s4w4.gz
+C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\scopedcss\Views\Shared\_AdminLayout.cshtml.rz.scp.css
+C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\scopedcss\Views\Shared\_MainLayout.cshtml.rz.scp.css
+C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\m29jmyjwrl-q7hr42s4w4.gz
+C:\Users\Developer\Desktop\ASPNET\ASP.NET-MVC-E-Commerce\obj\Debug\net9.0\compressed\k595od2avo-q7hr42s4w4.gz
