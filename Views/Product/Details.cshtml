@@ -1,93 +1,121 @@
 @model TestApp.Models.Product
 
 @{
-    ViewData["Title"] = Model.MetaTitle;
+    ViewData["Title"] = Model.MetaTitle ?? "Product Details";
     ViewData["Description"] = Model.MetaDescription;
     ViewData["Keywords"] = Model.MetaKeywords;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="row no-gutters">
+            <!-- Product Image Section -->
+            <div class="col-md-4 text-center p-4">
+                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach (var image in Model.Images)
+                        {
+                            <div class="carousel-item @(image.IsMain ? "active" : "")">
+                                <img src="@image.Url" class="d-block w-100" alt="@Model.Name">
+                            </div>
+                            @* <div class="carousel-item @(image.IsMain ? "active" : "")"> *@
+                            @*     <img src="https://via.placeholder.com/400" class="d-block w-100" alt="@Model.Name"> *@
+                            @* </div> *@
+                        }
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Brand)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaTitle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MetaKeywords)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MetaKeywords)
-        </dd>
-    </dl>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Details Section -->
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title text-primary font-weight-bold">@Model.Name</h2>
+                    <h4 class="text-success">$@Model.Price</h4>
+                    <p class="text-muted mb-3">@Model.Description</p>
+
+                    <div class="row">
+                        <div class="col-sm-6 mb-2">
+                            <strong>Brand:</strong> @Model.Brand
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                            <strong>Category:</strong> @Model.Category?.Name
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                            <strong>Stock:</strong> <span class="@((Model.Stock > 0) ? "text-success" : "text-danger")">
+                                @((Model.Stock > 0) ? $"{Model.Stock} in stock" : "Out of stock")
+                            </span>
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                            <strong>Rating:</strong> @Model.Rating ⭐
+                        </div>
+                    </div>
+
+                    <!-- Metadata Section -->
+                    <div class="mt-4">
+                        <h5>Additional Information</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Slug:</strong> @Model.Slug</li>
+                            <li><strong>Status:</strong> @Model.Status</li>
+                            <li><strong>Meta Title:</strong> @Model.MetaTitle</li>
+                            <li><strong>Meta Description:</strong> @Model.MetaDescription</li>
+                            <li><strong>Meta Keywords:</strong> @Model.MetaKeywords</li>
+                        </ul>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-4 d-flex">
+                        @if(User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary mr-2">
+                                Edit
+                            </a>
+                        }
+                        <a asp-controller="CartList" asp-action="Create" asp-route-productId="@Model.Id" class="btn btn-outline-dark">
+                            + Add to Cart
+                        </a>
+                        <div asp-controller="Home" asp-action="Index" class="ms-4 text-secondary">
+                            <- Back to List
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<style>
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .card-body h2 {
+        font-size: 2rem;
+    }
+
+    .card-body h4 {
+        font-size: 1.5rem;
+    }
+
+    .card-body ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+
+    .btn i {
+        margin-right: 0.5rem;
+    }
+</style>

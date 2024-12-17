@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,20 @@ namespace TestApp.Controllers
     public class CartListController : Controller
     {
         private readonly ApplicationDbContext _context;
+        // Identity
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CartListController(ApplicationDbContext context)
+        public CartListController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: CartList
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.CartItems.Include(c => c.Cart).Include(c => c.Product);
+            var applicationDbContext = _context.CartItems.Include(c => c.Cart).Include(c => c.Product).Where(c => c.Cart.UserId == _userManager.GetUserId(User));
+            ViewBag.isAddressOrContactEmpty = string.IsNullOrEmpty(_context.Carts.FirstOrDefault(c => c.UserId == _userManager.GetUserId(User) && !c.IsCheckedOut)?.Address) || string.IsNullOrEmpty(_context.Carts.FirstOrDefault(c => c.UserId == _userManager.GetUserId(User) && !c.IsCheckedOut)?.ContactNumber);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -62,19 +67,18 @@ namespace TestApp.Controllers
         // // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         //
         
-        // [ValidateAntiForgeryToken] 
         [Authorize]
         public async Task<IActionResult> Create(int productId)
         {
-            //check if user has a cart
-            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == User.Identity.Name && !c.IsCheckedOut);
-            
-            //if user has no cart, create a new cart
+            // Check if user has a cart
+            var cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserId == _userManager.GetUserId(User) && !c.IsCheckedOut);
+
+            // If user has no cart, create a new cart
             if (cart == null)
             {
                 cart = new Cart
                 {
-                    UserId = User.Identity.Name,
+                    UserId = _userManager.GetUserId(User),
                     IsCheckedOut = false,
                     SubTotal = 0,
                     Discount = 0,
@@ -84,18 +88,18 @@ namespace TestApp.Controllers
                 _context.Carts.Add(cart);
                 await _context.SaveChangesAsync();
             }
-            
-            //check if product is there in productId
+
+            // Check if product exists
             var product = await _context.Products.FindAsync(productId);
             if (product == null)
             {
                 return NotFound();
             }
-            
-            //check if product is already in cart
+
+            // Check if product is already in cart
             var cartItem = await _context.CartItems.FirstOrDefaultAsync(c => c.CartId == cart.Id && c.ProductId == productId);
-            
-            //if product is already in cart, increase quantity by 1
+
+            // If product is already in cart, increase quantity by 1
             if (cartItem != null)
             {
                 cartItem.Quantity++;
@@ -103,7 +107,7 @@ namespace TestApp.Controllers
             }
             else
             {
-                //if product is not in cart, add product to cart
+                // If product is not in cart, add product to cart
                 cartItem = new CartItem
                 {
                     CartId = cart.Id,
@@ -113,21 +117,59 @@ namespace TestApp.Controllers
                 };
                 _context.CartItems.Add(cartItem);
             }
-            
-            //update cart total 
+
+            // Update cart total
             cart.SubTotal += product.Price;
-            
-            //update cart total tax
+
+            // Update cart total tax
             cart.TotalTax += product.Price * 0.1m;
-            
-            //update cart total
-            cart.Total = cart.SubTotal + cart.TotalTax + cart.ShippingFee;  
-            
+
+            // Update cart total
+            cart.Total = cart.SubTotal + cart.TotalTax + cart.ShippingFee;
+
             _context.Update(cart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
+        
+        [HttpPost]
+        public IActionResult UpdateQuantity([FromBody] UpdateQuantityRequest request)
+        {
+            var cartItem = _context.CartItems
+                .Include(ci => ci.Product)
+                .FirstOrDefault(ci => ci.Id == request.CartId);
+
+            if (cartItem == null)
+                return Json(new { success = false });
+            // quantity should be less than product stock
+            if (cartItem.Quantity + request.Change > cartItem.Product.Stock)
+                return Json(new { success = false });
+
+            // Update quantity and handle edge cases (e.g., minimum quantity = 1)
+            cartItem.Quantity = Math.Max(1, cartItem.Quantity + request.Change);
+
+            _context.SaveChanges();
+
+            // Calculate totals
+            var itemTotal = (cartItem.Product.Price * cartItem.Quantity) + cartItem.ItemTax;
+            var grandTotal = _context.CartItems.Sum(ci => (ci.Product.Price * ci.Quantity) + ci.ItemTax);
+
+            return Json(new 
+            { 
+                success = true, 
+                newQuantity = cartItem.Quantity, 
+                itemTotal = itemTotal.ToString("C"), 
+                grandTotal = grandTotal.ToString("C") 
+            });
+        }
+
+        // DTO for request
+        public class UpdateQuantityRequest
+        {
+            public int CartId { get; set; }
+            public int Change { get; set; }
+        }
+
 
         // GET: CartList/Edit/5
         public async Task<IActionResult> Edit(int? id)

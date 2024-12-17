@@ -24,4 +24,7 @@ public class Product
     public string? MetaTitle { get; set; }
     public string? MetaDescription { get; set; }
     public string? MetaKeywords { get; set; }
+    
+    // cart items
+    public List<CartItem>? CartItems { get; set; }
 }

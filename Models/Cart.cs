@@ -5,8 +5,8 @@ namespace TestApp.Models;
 public class Cart
 {
     public int Id { get; set; }
-    public List<CartItem> CartItems { get; set; }
-    public bool IsCheckedOut { get; set; }
+    public List<CartItem>? CartItems { get; set; }
+    public bool IsCheckedOut { get; set; } = false;
     public DateTime? CheckedOutAt { get; set; }
     public decimal SubTotal { get; set; }
     public decimal Discount { get; set; }

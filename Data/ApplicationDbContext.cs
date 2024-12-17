@@ -105,5 +105,17 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(i => i.Product)
             .WithMany(p => p.Images)
             .HasForeignKey(i => i.ProductId);
+        
+        // define relationship between Cart and CartItem
+        modelBuilder.Entity<CartItem>()
+            .HasOne(ci => ci.Cart)
+            .WithMany(c => c.CartItems)
+            .HasForeignKey(ci => ci.CartId);
+        
+        // define relationship between CartItem and Product
+        modelBuilder.Entity<CartItem>()
+            .HasOne(ci => ci.Product)
+            .WithMany(p => p.CartItems)
+            .HasForeignKey(ci => ci.ProductId);
     }
 }

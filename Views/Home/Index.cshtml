@@ -1,13 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     // return View(await _context.Categories.Include(c => c.Products).ToListAsync());
+    //use main layot
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
     
     
 
 }
 <h1 class="display-2 text-black-50 text-center m-5">ASP.NET Core MVC E-Commerce Application</h1>
 <form asp-action="Index" method="get">
-    <div class="input-group mb-5">
+    <div class="input-group mb-5 w-50 mx-auto">
         <input type="text" name="search" class="form-control" placeholder="Search products ... " value="@ViewBag.Search" />
         <button type="submit" class="btn btn-primary">Search</button>
     </div>

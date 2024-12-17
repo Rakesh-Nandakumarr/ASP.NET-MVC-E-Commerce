@@ -21,50 +21,24 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <partial name="_LoginPartial" />
+                <a class="nav-link text-dark" asp-area="" asp-controller="CartList" asp-action="Index">
+                    My Cart
+                </a>
+                
+                <partial name="_LoginPartial"/>
             </div>
         </div>
     </nav>
 </header>
 
-<div class="d-flex">
-    <aside class="sidebar bg-dark border-end p-3" style="width: 250px; min-height: 100vh;">
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2">
-                <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Index">
-                    <i class="bi bi-house"></i> Dashboard
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Index">
-                    <i class="bi bi-box"></i> Products
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a class="nav-link text-light" asp-area="" asp-controller="Orders" asp-action="Index">
-                    <i class="bi bi-cart"></i> Orders
-                </a>
-            </li>
-            <li class="nav-item mb-2">
-                <a class="nav-link text-light" asp-area="" asp-controller="Category" asp-action="Index">
-                    <i class="bi bi-people"></i> Categories
-                </a>
-            </li>
-        </ul>
-    </aside>
+
 
     <main class="flex-grow-1 p-4">
         <div class="container-fluid">
             @RenderBody()
         </div>
     </main>
-</div>
 
-<footer class="bg-dark text-white text-center py-3">
-    <div class="container">
-        &copy; 2024 - E-Commerce Admin Panel - <a href="#" class="text-decoration-none text-white">Privacy Policy</a>
-    </div>
-</footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

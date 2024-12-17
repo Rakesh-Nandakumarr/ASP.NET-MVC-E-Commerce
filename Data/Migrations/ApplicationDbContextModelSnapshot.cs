@@ -3404,7 +3404,7 @@ namespace TestApp.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("TestApp.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3467,6 +3467,8 @@ namespace TestApp.Data.Migrations
 
             modelBuilder.Entity("TestApp.Models.Product", b =>
                 {
+                    b.Navigation("CartItems");
+
                     b.Navigation("Images");
 
                     b.Navigation("Reviews");

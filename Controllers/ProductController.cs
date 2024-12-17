@@ -38,7 +38,11 @@ namespace TestApp.Controllers
 
             var product = await _context.Products
                 .Include(p => p.Category)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(m => m.Slug == slug);
+            
+            
+            
             if (product == null)
             {
                 return NotFound();
